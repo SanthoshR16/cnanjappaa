@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: c-nanjappa-timbers
+    runtime: node
+    plan: free
+    buildCommand: npm install && npm run build && npx prisma generate && npx prisma db push
+    startCommand: node server/index.js
+    envVars:
+      - key: DATABASE_URL
+        sync: true
+      - key: CLOUDINARY_CLOUD_NAME
+        sync: true
+      - key: CLOUDINARY_API_KEY
+        sync: true
+      - key: CLOUDINARY_API_SECRET
+        sync: true
+      - key: NODE_ENV
+        value: production
