@@ -302,6 +302,12 @@ export default function Employees() {
                         {emp.status}
                       </span>
                     </td>
+                    <td data-label="Role" className="mobile-only-cell">{emp.role}</td>
+                    <td data-label="Leaves Taken" className="mobile-only-cell">{emp.absentDays || 0} days</td>
+                    <td data-label="Base Pay" className="mobile-only-cell">₹{(emp.basicSalary || 0).toLocaleString('en-IN')}</td>
+                    <td data-label="Allowances" className="mobile-only-cell">₹{(emp.allowances || 0).toLocaleString('en-IN')}</td>
+                    <td data-label="Deductions" className="mobile-only-cell">₹{(emp.deductions || 0).toLocaleString('en-IN')}</td>
+                    <td data-label="Net Pay" className="mobile-only-cell">₹{((emp.basicSalary || 0) + (emp.allowances || 0) - (emp.deductions || 0)).toLocaleString('en-IN')}</td>
                     <td data-label="Actions">
                       <div className="action-menu-container">
                         <button className="action-btn" onClick={() => toggleActionMenu(emp.id)}>

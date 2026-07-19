@@ -54,6 +54,11 @@ class MainActivity : AppCompatActivity() {
         settings.databaseEnabled = true
         settings.allowFileAccess = true
 
+        // Let the web application's prefers-color-scheme media queries apply dark variables natively
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            settings.forceDark = android.webkit.WebSettings.FORCE_DARK_OFF
+        }
+
         // Handle permission requests (e.g. camera) from WebView
         webView.webChromeClient = object : WebChromeClient() {
             override fun onPermissionRequest(request: PermissionRequest?) {

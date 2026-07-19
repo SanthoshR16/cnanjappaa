@@ -291,7 +291,7 @@ export default function Reports() {
                 {reportData.map((emp) => {
                   return (
                     <tr key={emp.id}>
-                      <td>
+                      <td data-label="Employee Info">
                         <div className="employee-cell">
                           <div 
                             className="employee-avatar" 
@@ -305,22 +305,22 @@ export default function Reports() {
                           </div>
                         </div>
                       </td>
-                      <td>
+                      <td data-label="Dept & Role">
                         <div className="dept-cell">
                           <span>{emp.department}</span>
                           <small className="text-muted">{emp.role}</small>
                         </div>
                       </td>
-                      <td>
+                      <td data-label="Days Worked">
                         <strong className={emp.daysWorked > 0 ? 'text-success' : 'text-muted'}>
                           {emp.daysWorked} days
                         </strong>
                       </td>
-                      <td>₹{emp.totalDailyWage.toLocaleString('en-IN')}</td>
-                      <td className="text-success">+₹{emp.totalBonus.toLocaleString('en-IN')}</td>
-                      <td className="text-success">+₹{emp.totalOT.toLocaleString('en-IN')}</td>
-                      <td className="text-danger">-₹{emp.totalDeduction.toLocaleString('en-IN')}</td>
-                      <td>
+                      <td data-label="Wages Earned">₹{emp.totalDailyWage.toLocaleString('en-IN')}</td>
+                      <td data-label="Total Bonus" className="text-success">+₹{emp.totalBonus.toLocaleString('en-IN')}</td>
+                      <td data-label="OT Amount" className="text-success">+₹{emp.totalOT.toLocaleString('en-IN')}</td>
+                      <td data-label="Total Deductions" className="text-danger">-₹{emp.totalDeduction.toLocaleString('en-IN')}</td>
+                      <td data-label="Net Payout">
                         <strong className="final-net-highlight">
                           ₹{emp.netPay.toLocaleString('en-IN')}
                         </strong>

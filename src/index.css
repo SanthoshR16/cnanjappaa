@@ -38,6 +38,34 @@
   --transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@media (prefers-color-scheme: dark) {
+  :root {
+    --primary: #818cf8;
+    --primary-hover: #a5b4fc;
+    --primary-light: rgba(129, 140, 248, 0.15);
+    --secondary: #c7d2fe;
+    
+    --background: #0f172a;
+    --surface: #1e293b;
+    --surface-hover: #334155;
+    --accent: #475569;
+    
+    --text-main: #f8fafc;
+    --text-muted: #94a3b8;
+    --text-inverse: #0f172a;
+    
+    --border: #334155;
+    --border-light: rgba(255, 255, 255, 0.05);
+    
+    --success: #34d399;
+    --success-bg: rgba(52, 211, 153, 0.15);
+    --danger: #f87171;
+    --danger-bg: rgba(248, 113, 113, 0.15);
+    --warning: #fbbf24;
+    --warning-bg: rgba(251, 191, 36, 0.15);
+  }
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -261,6 +289,10 @@ h4 { font-size: 1.125rem; }
   box-shadow: inset -10px 0 10px -10px rgba(0, 0, 0, 0.2);
 }
 
+.mobile-only-cell {
+  display: none !important;
+}
+
 @media (max-width: 768px) {
   /* Task 1: Convert tables to stacked card layouts (Remove horizontal scrolling) */
   .table-responsive {
@@ -312,10 +344,63 @@ h4 { font-size: 1.125rem; }
     border-bottom: none !important;
   }
 
-  /* Target alignment and spacing inside card layout */
+  /* Make the first cell (Employee profile header) act as a card header */
+  .enterprise-table td:first-of-type,
+  .enterprise-table td[data-label="Employee"],
+  .enterprise-table td[data-label="Employee Info"] {
+    justify-content: flex-start !important;
+    background-color: var(--surface-hover) !important;
+    border-bottom: 1px solid var(--border) !important;
+    padding: 0.75rem 1rem !important;
+    margin: -0.75rem -0.75rem 0.75rem -0.75rem !important;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Hide the label for the profile card header */
+  .enterprise-table td:first-of-type::before,
+  .enterprise-table td[data-label="Employee"]::before,
+  .enterprise-table td[data-label="Employee Info"]::before {
+    display: none !important;
+  }
+
+  /* Prevent avatar stretching in the employee header */
+  .enterprise-table td .employee-avatar,
+  .employee-avatar {
+    width: 40px !important;
+    height: 40px !important;
+    min-width: 40px !important;
+    min-height: 40px !important;
+    border-radius: 50% !important;
+    flex-shrink: 0 !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-weight: 600 !important;
+  }
+
+  /* Layout for the name + role details inside the card header */
   .enterprise-table td .employee-cell {
-    justify-content: flex-end !important;
-    text-align: right !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    text-align: left !important;
+    width: 100% !important;
+    gap: 0.75rem !important;
+  }
+
+  .enterprise-table td .employee-details {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+
+  /* Display mobile-only cells as flex row layout on small screens */
+  .mobile-only-cell {
+    display: flex !important;
   }
 
   .enterprise-table td .time-cell {
