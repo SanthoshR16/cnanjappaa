@@ -265,7 +265,7 @@ export default function Employees() {
               <tbody>
                 {filteredEmployees.map((emp) => (
                   <tr key={emp.id}>
-                    <td>
+                    <td data-label="Employee">
                       <div className="employee-cell">
                         {emp.photo ? (
                            <img src={emp.photo} alt={emp.name} className="employee-avatar" style={{ objectFit: 'cover' }} />
@@ -280,29 +280,29 @@ export default function Employees() {
                         </div>
                       </div>
                     </td>
-                    <td><span className="text-muted">{emp.id}</span></td>
-                    <td>{emp.department}</td>
-                    <td>
+                    <td data-label="ID"><span className="text-muted">{emp.id}</span></td>
+                    <td data-label="Department">{emp.department}</td>
+                    <td data-label="Check In/Out">
                       <div className="time-cell">
                         <span className="check-in text-success">{emp.checkIn || '--'}</span>
                         <span className="separator">-</span>
                         <span className="check-out text-muted">{emp.checkOut || '--'}</span>
                       </div>
                     </td>
-                    <td>{emp.otHours || 0}h</td>
-                    <td>
+                    <td data-label="OT Hours">{emp.otHours || 0}h</td>
+                    <td data-label="Biometrics">
                       {emp.verified ? (
                         <span className="badge badge-success">Verified</span>
                       ) : (
                         <span className="badge badge-warning">Pending</span>
                       )}
                     </td>
-                    <td>
+                    <td data-label="Status">
                       <span className={`status-pill ${emp.status.toLowerCase().replace(' ', '-')}`}>
                         {emp.status}
                       </span>
                     </td>
-                    <td>
+                    <td data-label="Actions">
                       <div className="action-menu-container">
                         <button className="action-btn" onClick={() => toggleActionMenu(emp.id)}>
                           <MoreVertical size={18} />

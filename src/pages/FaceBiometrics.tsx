@@ -53,20 +53,6 @@ export default function FaceBiometrics() {
 
   const startCamera = async () => {
     try {
-      if (navigator.permissions && navigator.permissions.query) {
-        try {
-          const status = await navigator.permissions.query({ name: 'camera' as any });
-          if (status.state === 'denied') {
-            setShowPermissionModal(true);
-            setScanErrorMsg("Camera Access Denied");
-            setScanResult('failed');
-            return;
-          }
-        } catch (pe) {
-          console.warn("Permissions API check failed", pe);
-        }
-      }
-
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -77,7 +63,7 @@ export default function FaceBiometrics() {
       }
     } catch (err: any) {
       console.error("Error accessing webcam", err);
-      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError' || err.message?.includes('denied')) {
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError' || err.message?.includes('denied') || err.name === 'SecurityError') {
         setShowPermissionModal(true);
       }
       setScanErrorMsg("Camera Access Denied");

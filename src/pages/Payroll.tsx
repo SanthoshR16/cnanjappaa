@@ -274,7 +274,7 @@ export default function Payroll() {
                     const saved = isAlreadySaved(emp.id);
                     return (
                       <tr key={emp.id} className={saved ? 'row-saved' : ''}>
-                        <td>
+                        <td data-label="Employee">
                           <div className="employee-cell">
                             <div className="employee-avatar" style={{ backgroundColor: emp.avatarColor || 'var(--primary-light)' }}>
                               {emp.name.charAt(0)}
@@ -285,10 +285,10 @@ export default function Payroll() {
                             </div>
                           </div>
                         </td>
-                        <td>
+                        <td data-label="Attendance">
                           <span className="status-pill active">{emp.status}</span>
                         </td>
-                        <td>
+                        <td data-label="Timber Qty">
                           <input 
                             type="number"
                             min="0"
@@ -300,7 +300,7 @@ export default function Payroll() {
                             disabled={saved}
                           />
                         </td>
-                        <td>
+                        <td data-label="Rate / Unit">
                           <input 
                             type="number"
                             min="0"
@@ -312,7 +312,7 @@ export default function Payroll() {
                             disabled={saved}
                           />
                         </td>
-                        <td>
+                        <td data-label="Daily Wage (₹)">
                           <input 
                             type="number"
                             min="0"
@@ -324,7 +324,7 @@ export default function Payroll() {
                             disabled={saved}
                           />
                         </td>
-                        <td>
+                        <td data-label="Bonus (₹)">
                           <input 
                             type="number"
                             min="0"
@@ -336,7 +336,7 @@ export default function Payroll() {
                             disabled={saved}
                           />
                         </td>
-                        <td>
+                        <td data-label="Deduction (₹)">
                           <input 
                             type="number"
                             min="0"
@@ -348,10 +348,10 @@ export default function Payroll() {
                             disabled={saved}
                           />
                         </td>
-                        <td>
+                        <td data-label="Final Pay (₹)">
                           <strong>₹{Number(record.finalAmount || 0).toLocaleString('en-IN')}</strong>
                         </td>
-                        <td>
+                        <td data-label="Status">
                           {saved ? (
                             <span className="text-success flex items-center gap-1"><CheckCircle size={16} /> Saved</span>
                           ) : (
@@ -423,8 +423,8 @@ export default function Payroll() {
                     const emp = employees.find(e => e.id === record.employeeId);
                     return (
                       <tr key={record.id}>
-                        <td><strong>{record.date}</strong></td>
-                        <td>
+                        <td data-label="Date"><strong>{record.date}</strong></td>
+                        <td data-label="Employee">
                           <div className="employee-cell">
                             <div className="employee-details">
                               <span className="employee-name">{emp?.name || 'Unknown'}</span>
@@ -432,14 +432,14 @@ export default function Payroll() {
                             </div>
                           </div>
                         </td>
-                        <td className="text-sm text-muted">
+                        <td data-label="Timber Math" className="text-sm text-muted">
                           {record.timberQuantity ? `${record.timberQuantity} qty @ ₹${record.ratePerUnit}` : '--'}
                         </td>
-                        <td>₹{record.dailyWage.toLocaleString('en-IN')}</td>
-                        <td className="text-success">+{record.bonus}</td>
-                        <td className="text-danger">-{record.deduction}</td>
-                        <td><strong className="text-primary">₹{record.finalAmount.toLocaleString('en-IN')}</strong></td>
-                        <td className="text-sm text-muted">{record.createdBy}</td>
+                        <td data-label="Wage">₹{record.dailyWage.toLocaleString('en-IN')}</td>
+                        <td data-label="Bonus" className="text-success">+{record.bonus}</td>
+                        <td data-label="Deduction" className="text-danger">-{record.deduction}</td>
+                        <td data-label="Final Amount"><strong className="text-primary">₹{record.finalAmount.toLocaleString('en-IN')}</strong></td>
+                        <td data-label="Recorded By" className="text-sm text-muted">{record.createdBy}</td>
                       </tr>
                     );
                   })}
@@ -486,18 +486,18 @@ export default function Payroll() {
                 <tbody>
                   {monthlySummary.map(row => (
                     <tr key={row.id}>
-                      <td>
+                      <td data-label="Employee">
                         <div className="employee-details">
                           <span className="employee-name">{row.name}</span>
                           <span className="employee-role">{row.id}</span>
                         </div>
                       </td>
-                      <td>{row.dept}</td>
-                      <td><strong>{row.daysWorked} days</strong></td>
-                      <td>₹{row.totalEarnings.toLocaleString('en-IN')}</td>
-                      <td className="text-success">₹{row.totalBonus.toLocaleString('en-IN')}</td>
-                      <td className="text-danger">₹{row.totalDeduction.toLocaleString('en-IN')}</td>
-                      <td>
+                      <td data-label="Dept">{row.dept}</td>
+                      <td data-label="Days Worked"><strong>{row.daysWorked} days</strong></td>
+                      <td data-label="Total Base Earnings">₹{row.totalEarnings.toLocaleString('en-IN')}</td>
+                      <td data-label="Total Bonus" className="text-success">₹{row.totalBonus.toLocaleString('en-IN')}</td>
+                      <td data-label="Total Deductions" className="text-danger">₹{row.totalDeduction.toLocaleString('en-IN')}</td>
+                      <td data-label="Net Monthly Pay">
                         <strong className="text-primary" style={{ fontSize: '1.1rem' }}>
                           ₹{row.netPay.toLocaleString('en-IN')}
                         </strong>

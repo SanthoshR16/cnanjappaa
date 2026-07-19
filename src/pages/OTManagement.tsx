@@ -293,7 +293,7 @@ export default function OTManagement() {
 
                     return (
                       <tr key={record.id}>
-                        <td>
+                        <td data-label="Employee">
                           <div className="employee-cell">
                             <div 
                               className="employee-avatar" 
@@ -307,12 +307,12 @@ export default function OTManagement() {
                             </div>
                           </div>
                         </td>
-                        <td>
+                        <td data-label="OT Hours">
                           <strong>{record.otHours} hrs</strong>
                         </td>
-                        <td>₹{record.otHourlyRate.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</td>
-                        <td>₹{record.calculatedAmount.toLocaleString('en-IN')}</td>
-                        <td>
+                        <td data-label="Hourly Rate">₹{record.otHourlyRate.toLocaleString('en-IN', { maximumFractionDigits: 2 })}</td>
+                        <td data-label="Calculated">₹{record.calculatedAmount.toLocaleString('en-IN')}</td>
+                        <td data-label="Final Amount">
                           <div style={{ display: 'flex', flexDirection: 'column' }}>
                             <strong className={isOverridden ? 'text-warning' : 'text-success'}>
                               ₹{record.finalAmount.toLocaleString('en-IN')}
@@ -320,7 +320,7 @@ export default function OTManagement() {
                             {isOverridden && <span style={{ fontSize: '0.7rem', color: 'var(--warning)' }}>Modified</span>}
                           </div>
                         </td>
-                        <td>
+                        <td data-label="Status">
                           <span className={`status-pill ${getStatusBadgeClass(record.status)}`}>
                             {record.status === 'Draft' && <Clock size={12} />}
                             {record.status === 'Approved' && <Check size={12} />}
@@ -328,7 +328,7 @@ export default function OTManagement() {
                             {record.status}
                           </span>
                         </td>
-                        <td>
+                        <td data-label="Actions">
                           <div className="action-buttons-group">
                             {record.status === 'Draft' ? (
                               <>
@@ -436,8 +436,8 @@ export default function OTManagement() {
               <tbody>
                 {historyRecords.length > 0 ? historyRecords.map((record) => (
                   <tr key={record.id}>
-                    <td><strong>{record.month}</strong></td>
-                    <td>
+                    <td data-label="Month"><strong>{record.month}</strong></td>
+                    <td data-label="Employee">
                       <div className="employee-cell">
                         <div 
                           className="employee-avatar small" 
@@ -451,14 +451,14 @@ export default function OTManagement() {
                         </div>
                       </div>
                     </td>
-                    <td>{record.otHours} hrs</td>
-                    <td><strong>₹{record.finalAmount.toLocaleString('en-IN')}</strong></td>
-                    <td>
+                    <td data-label="OT Hours">{record.otHours} hrs</td>
+                    <td data-label="Final OT Amount"><strong>₹{record.finalAmount.toLocaleString('en-IN')}</strong></td>
+                    <td data-label="Status">
                       <span className={`status-pill ${getStatusBadgeClass(record.status)}`}>
                         {record.status}
                       </span>
                     </td>
-                    <td>
+                    <td data-label="Approved By">
                       {record.approvedBy ? (
                         <span className="text-muted text-sm">{record.approvedBy}</span>
                       ) : (

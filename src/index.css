@@ -262,19 +262,88 @@ h4 { font-size: 1.125rem; }
 }
 
 @media (max-width: 768px) {
-  /* Force tables with many columns to stay wide enough to scroll without truncation */
-  .enterprise-table {
-    min-width: 850px !important;
-    width: max-content !important;
+  /* Task 1: Convert tables to stacked card layouts (Remove horizontal scrolling) */
+  .table-responsive {
+    box-shadow: none !important;
+    overflow-x: visible !important;
   }
-  
-  .enterprise-table th, .enterprise-table td {
-    white-space: nowrap !important;
+
+  .enterprise-table {
+    min-width: 100% !important;
+    width: 100% !important;
+    display: block !important;
+    border: none !important;
+  }
+
+  .enterprise-table thead {
+    display: none !important;
+  }
+
+  .enterprise-table tbody, 
+  .enterprise-table tr, 
+  .enterprise-table td {
+    display: block !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+
+  .enterprise-table tr {
+    margin-bottom: 1.25rem !important;
+    border: 1px solid var(--border) !important;
+    border-radius: var(--radius-lg) !important;
+    background-color: var(--surface) !important;
+    padding: 0.75rem !important;
+    box-shadow: var(--shadow-sm) !important;
+  }
+
+  .enterprise-table td {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0.625rem 0.5rem !important;
+    border: none !important;
+    border-bottom: 1px dashed var(--border-light) !important;
+    text-align: right !important;
+    font-size: 0.9rem !important;
+    white-space: normal !important;
+  }
+
+  .enterprise-table td:last-child {
+    border-bottom: none !important;
+  }
+
+  /* Target alignment and spacing inside card layout */
+  .enterprise-table td .employee-cell {
+    justify-content: flex-end !important;
+    text-align: right !important;
+  }
+
+  .enterprise-table td .time-cell {
+    justify-content: flex-end !important;
+  }
+
+  .enterprise-table td .action-buttons-group {
+    justify-content: flex-end !important;
+  }
+
+  .enterprise-table td::before {
+    content: attr(data-label) !important;
+    font-weight: 600 !important;
+    color: var(--text-muted) !important;
+    text-align: left !important;
+    margin-right: 1.5rem !important;
+    flex-shrink: 0 !important;
   }
 
   /* Allow text wrap inside colspan/empty table states to show message properly */
   .enterprise-table td[colspan] {
     white-space: normal !important;
+    display: block !important;
+    text-align: center !important;
+    padding: 2rem !important;
+  }
+  .enterprise-table td[colspan]::before {
+    display: none !important;
   }
 
   /* Guarantee min 48px touch targets for usability on mobile */
