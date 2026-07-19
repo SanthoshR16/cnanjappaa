@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import * as faceapi from 'face-api.js';
-import { Camera, CheckCircle, ScanFace, XCircle, LogIn, LogOut } from 'lucide-react';
+import { Camera, CheckCircle, ScanFace, XCircle, LogIn, LogOut, X } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import biometricsBg from '../assets/dashboard-backgrounds/biometrics-bg.webp';
 import './FaceBiometrics.css';
@@ -32,6 +32,7 @@ export default function FaceBiometrics() {
   const scanTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const scanIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const encodedEmployeeIds = useRef(new Set<string>());
+  const [showPermissionModal, setShowPermissionModal] = useState(false);
 
   // Cleanup on unmount only
   useEffect(() => {
@@ -52,6 +53,20 @@ export default function FaceBiometrics() {
 
   const startCamera = async () => {
     try {
+      if (navigator.permissions && navigator.permissions.query) {
+        try {
+          const status = await navigator.permissions.query({ name: 'camera' as any });
+          if (status.state === 'denied') {
+            setShowPermissionModal(true);
+            setScanErrorMsg("Camera Access Denied");
+            setScanResult('failed');
+            return;
+          }
+        } catch (pe) {
+          console.warn("Permissions API check failed", pe);
+        }
+      }
+
       const stream = await navigator.mediaDevices.getUserMedia({ video: true });
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
@@ -60,8 +75,11 @@ export default function FaceBiometrics() {
         setScanErrorMsg(null);
         setMatchedEmployee(null);
       }
-    } catch (err) {
+    } catch (err: any) {
       console.error("Error accessing webcam", err);
+      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError' || err.message?.includes('denied')) {
+        setShowPermissionModal(true);
+      }
       setScanErrorMsg("Camera Access Denied");
       setScanResult('failed');
     }
@@ -458,9 +476,50 @@ export default function FaceBiometrics() {
               )}
             </div>
           </div>
+      </div>
+      </div>
+      </div>
+
+      {showPermissionModal && (
+        <div className="modal-backdrop">
+          <div className="modal-content card" style={{ maxWidth: '500px', padding: '1.5rem' }}>
+            <div className="modal-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '1.5rem', borderBottom: '1px solid var(--border-light)', paddingBottom: '0.75rem' }}>
+              <h3 style={{ margin: 0 }}>Enable Camera Access</h3>
+              <button onClick={() => setShowPermissionModal(false)} className="close-btn" style={{ background: 'none', border: 'none', cursor: 'pointer', padding: '4px' }}>
+                <X size={20} />
+              </button>
+            </div>
+            <div className="modal-body" style={{ fontSize: '0.9rem', color: 'var(--text-main)', lineHeight: '1.5' }}>
+              <p style={{ marginBottom: '1rem', fontWeight: '500' }}>Camera access is blocked or denied. Please enable it using the steps below to use the biometrics scanner:</p>
+              
+              <div className="instruction-section" style={{ marginBottom: '1.25rem' }}>
+                <h4 style={{ color: 'var(--primary)', margin: '0 0 0.5rem 0' }}>Android Chrome</h4>
+                <ol style={{ paddingLeft: '1.25rem', margin: 0 }}>
+                  <li>Tap the lock/settings icon on the left side of the address bar.</li>
+                  <li>Tap <strong>Site Settings</strong> or <strong>Permissions</strong>.</li>
+                  <li>Set <strong>Camera</strong> to <strong>Allow</strong>.</li>
+                  <li>Refresh the browser tab.</li>
+                </ol>
+              </div>
+
+              <div className="instruction-section" style={{ marginBottom: '1.5rem' }}>
+                <h4 style={{ color: 'var(--primary)', margin: '0 0 0.5rem 0' }}>iOS Safari</h4>
+                <ol style={{ paddingLeft: '1.25rem', margin: 0 }}>
+                  <li>Open the iPhone/iPad <strong>Settings</strong> app.</li>
+                  <li>Scroll down and tap <strong>Safari</strong>.</li>
+                  <li>Scroll to the bottom and select <strong>Camera</strong>.</li>
+                  <li>Ensure the selection is set to <strong>Allow</strong> or <strong>Ask</strong>.</li>
+                  <li>Restart Safari and reload this page.</li>
+                </ol>
+              </div>
+
+              <button className="btn-primary" onClick={() => setShowPermissionModal(false)} style={{ width: '100%', justifyContent: 'center', height: '48px' }}>
+                Got It
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
-      </div>
+      )}
     </>
   );
 }

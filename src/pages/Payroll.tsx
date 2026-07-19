@@ -243,7 +243,7 @@ export default function Payroll() {
                 style={{ height: '44px', padding: '0 1rem', borderRadius: 'var(--radius-md)', border: '1px solid var(--border)' }}
               />
               <button 
-                className="btn-primary" 
+                className="btn-save-erp" 
                 onClick={saveAllEntries}
                 disabled={isSaving}
                 style={{ height: '44px', display: 'flex', alignItems: 'center', gap: '0.5rem', marginLeft: 'auto' }}

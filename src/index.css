@@ -213,10 +213,92 @@ h4 { font-size: 1.125rem; }
   }
 }
 
+/* Global Button Utilities */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: var(--primary);
+  color: var(--text-inverse);
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.btn-primary:hover {
+  background-color: var(--primary-hover);
+}
+.btn-primary:disabled {
+  background-color: var(--text-muted);
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.btn-outline {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background-color: transparent;
+  color: var(--text-main);
+  border: 1px solid var(--border);
+  padding: 0.625rem 1.25rem;
+  border-radius: var(--radius-md);
+  font-weight: 500;
+  transition: var(--transition);
+  cursor: pointer;
+}
+.btn-outline:hover {
+  background-color: var(--surface-hover);
+}
+
 .table-responsive {
   width: 100%;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
+  position: relative;
+  /* Inset box shadow on right side showing it's scrollable */
+  box-shadow: inset -10px 0 10px -10px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  /* Force tables with many columns to stay wide enough to scroll without truncation */
+  .enterprise-table {
+    min-width: 850px !important;
+    width: max-content !important;
+  }
+  
+  .enterprise-table th, .enterprise-table td {
+    white-space: nowrap !important;
+  }
+
+  /* Allow text wrap inside colspan/empty table states to show message properly */
+  .enterprise-table td[colspan] {
+    white-space: normal !important;
+  }
+
+  /* Guarantee min 48px touch targets for usability on mobile */
+  button, 
+  .btn-primary, 
+  .btn-outline, 
+  .btn-save-erp, 
+  .tab-btn, 
+  .btn-action, 
+  .mode-btn, 
+  .manual-override-btn,
+  .btn-icon-action,
+  .close-btn {
+    min-height: 48px !important;
+    min-width: 48px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* Inputs minimum height on mobile */
+  input, select, textarea {
+    min-height: 48px !important;
+  }
 }
 
 
