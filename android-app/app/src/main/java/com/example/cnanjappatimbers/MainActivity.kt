@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var webView: WebView
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var progressBar: ProgressBar
-    private val targetUrl = "https://c-nanjappa-timbers.onrender.com"
+    private val targetUrl = "https://cnanjappaa.onrender.com"
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
