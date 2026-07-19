@@ -707,4 +707,63 @@
   .search-box-erp, .date-picker-erp, .btn-save-erp {
     width: 100%;
   }
+  .history-filters {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5rem;
+    width: 100%;
+  }
+  .filter-select {
+    width: 100%;
+  }
+  .payroll-tabs {
+    overflow-x: auto;
+    white-space: nowrap;
+    display: flex;
+    flex-wrap: nowrap;
+    padding-bottom: 0.25rem;
+    -webkit-overflow-scrolling: touch;
+    width: 100%;
+  }
+  .payroll-tabs .tab-btn {
+    flex: 0 0 auto;
+    padding: 0.5rem 1rem;
+  }
+  .payslip-modal {
+    width: 95% !important;
+    max-width: 95% !important;
+    padding: 1rem !important;
+  }
+  .payslip-invoice-sheet {
+    padding: 1rem !important;
+  }
+}
+
+@media (max-width: 500px) {
+  .invoice-branding {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1rem;
+  }
+  .branding-slip-details {
+    text-align: center !important;
+  }
+  .payslip-details-grid {
+    grid-template-columns: 1fr;
+  }
+  .payslip-signatures {
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+  }
+  .action-buttons-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.5rem;
+  }
+  .action-buttons-group button, .action-buttons-group .btn-action {
+    width: 100% !important;
+    justify-content: center !important;
+  }
 }
