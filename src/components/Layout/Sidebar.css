@@ -128,3 +128,22 @@
   font-size: 0.75rem;
   color: rgba(255, 255, 255, 0.6);
 }
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: 260px;
+    height: 100vh;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 1000;
+  }
+
+  body.mobile-nav-active .sidebar {
+    transform: translateX(0);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+  }
+}

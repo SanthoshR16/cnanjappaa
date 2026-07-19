@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { Bell, Search, CheckCircle, AlertCircle, Info, Clock, Check, Trash2 } from 'lucide-react';
+import { Bell, Search, CheckCircle, AlertCircle, Info, Clock, Check, Trash2, Menu } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import './Topbar.css';
 
@@ -48,6 +48,14 @@ export default function Topbar() {
 
   return (
     <header className="topbar">
+      <button 
+        className="mobile-menu-toggle"
+        onClick={() => document.body.classList.toggle('mobile-nav-active')}
+        title="Toggle Menu"
+      >
+        <Menu size={24} />
+      </button>
+      
       <div className="topbar-search">
         <Search size={18} className="search-icon" />
         <input type="text" placeholder="Search employees, reports, etc..." />

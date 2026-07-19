@@ -21,3 +21,24 @@
   position: relative;
   z-index: 2;
 }
+
+.sidebar-overlay {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .page-container {
+    padding: 1rem;
+  }
+  
+  body.mobile-nav-active .sidebar-overlay {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(16, 11, 60, 0.4);
+    z-index: 999;
+  }
+}

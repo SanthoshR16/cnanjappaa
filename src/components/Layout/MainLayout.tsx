@@ -15,6 +15,10 @@ export default function MainLayout() {
   return (
     <div className="main-layout">
       <Sidebar />
+      <div 
+        className="sidebar-overlay" 
+        onClick={() => document.body.classList.remove('mobile-nav-active')}
+      />
       <div className="layout-content">
         <Topbar />
         <main className="page-container">

@@ -52,6 +52,7 @@ export default function Sidebar() {
                 <NavLink 
                   to={item.path} 
                   className={`nav-link ${isActive ? 'active' : ''}`}
+                  onClick={() => document.body.classList.remove('mobile-nav-active')}
                 >
                   <Icon size={20} className="nav-icon" />
                   <span>{item.label}</span>

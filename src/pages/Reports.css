@@ -82,6 +82,22 @@
   font-size: 0.875rem;
 }
 
+.export-actions {
+  display: flex;
+  gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .export-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  .export-actions button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* Audit Report sheet print refinements */
 @media print {
   .export-actions, .table-toolbar {
