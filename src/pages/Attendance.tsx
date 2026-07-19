@@ -130,7 +130,7 @@ export default function Attendance() {
 
                   return (
                     <tr key={emp.id}>
-                      <td>
+                      <td data-label="Employee">
                         <div className="employee-cell">
                           <div 
                             className="employee-avatar" 
@@ -144,12 +144,12 @@ export default function Attendance() {
                           </div>
                         </div>
                       </td>
-                      <td><span className="text-muted font-medium">{emp.id}</span></td>
-                      <td>{emp.department}</td>
-                      <td><strong className="text-success">{emp.presentDays} days</strong></td>
-                      <td><strong className="text-danger">{emp.absentDays} days</strong></td>
-                      <td><span className="text-muted font-medium">{emp.totalWorkingDays} days</span></td>
-                      <td>
+                      <td data-label="ID"><span className="text-muted font-medium">{emp.id}</span></td>
+                      <td data-label="Department">{emp.department}</td>
+                      <td data-label="Present Days"><strong className="text-success">{emp.presentDays} days</strong></td>
+                      <td data-label="Absent Days"><strong className="text-danger">{emp.absentDays} days</strong></td>
+                      <td data-label="Total Work Days"><span className="text-muted font-medium">{emp.totalWorkingDays} days</span></td>
+                      <td data-label="Attendance Rate">
                         <div className="progress-bar-wrapper">
                           <div className="progress-bar-container">
                             <div 
@@ -160,7 +160,7 @@ export default function Attendance() {
                           <span className="rate-text">{rate}%</span>
                         </div>
                       </td>
-                      <td>
+                      <td data-label="Compliance">
                         <span className={`status-pill compliance-pill ${statusClass}`}>
                           {rate >= 90 ? 'Excellent' : rate >= 80 ? 'Good' : 'Needs Review'}
                         </span>
@@ -189,7 +189,7 @@ export default function Attendance() {
               <tbody>
                 {filteredEmployees.map((emp) => (
                   <tr key={emp.id}>
-                    <td>
+                    <td data-label="Employee">
                       <div className="employee-cell">
                         <div 
                           className="employee-avatar" 
@@ -203,19 +203,19 @@ export default function Attendance() {
                         </div>
                       </div>
                     </td>
-                    <td><span className="text-muted font-medium">{emp.id}</span></td>
-                    <td>{emp.department}</td>
-                    <td>
+                    <td data-label="ID"><span className="text-muted font-medium">{emp.id}</span></td>
+                    <td data-label="Department">{emp.department}</td>
+                    <td data-label="Check-In">
                       <span className={`check-time check-in-time ${emp.status !== 'Absent' ? 'text-success' : 'text-muted'}`}>
                         {emp.checkIn}
                       </span>
                     </td>
-                    <td>
+                    <td data-label="Check-Out">
                       <span className="check-time check-out-time text-muted">
                         {emp.checkOut}
                       </span>
                     </td>
-                    <td>
+                    <td data-label="Verification">
                       {emp.verified ? (
                         <span className="badge badge-success">Face Verified</span>
                       ) : emp.status !== 'Absent' ? (
@@ -224,7 +224,7 @@ export default function Attendance() {
                         <span className="badge text-muted">--</span>
                       )}
                     </td>
-                    <td>
+                    <td data-label="Status">
                       <span className={`status-pill ${emp.status.toLowerCase().replace(' ', '-')}`}>
                         {emp.status}
                       </span>

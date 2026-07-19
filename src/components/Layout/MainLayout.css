@@ -23,7 +23,16 @@
 }
 
 .sidebar-overlay {
-  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(16, 11, 60, 0.4);
+  z-index: 999;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 @media (max-width: 768px) {
@@ -32,13 +41,7 @@
   }
   
   body.mobile-nav-active .sidebar-overlay {
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(16, 11, 60, 0.4);
-    z-index: 999;
+    opacity: 1;
+    pointer-events: auto;
   }
 }
