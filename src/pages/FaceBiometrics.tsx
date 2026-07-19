@@ -51,24 +51,25 @@ export default function FaceBiometrics() {
     modeRef.current = attendanceMode;
   }, [attendanceMode]);
 
-  const startCamera = async () => {
-    try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        setIsScanning(true);
-        setScanResult(null);
-        setScanErrorMsg(null);
-        setMatchedEmployee(null);
-      }
-    } catch (err: any) {
-      console.error("Error accessing webcam", err);
-      if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError' || err.message?.includes('denied') || err.name === 'SecurityError') {
-        setShowPermissionModal(true);
-      }
-      setScanErrorMsg("Camera Access Denied");
-      setScanResult('failed');
-    }
+  const startCamera = () => {
+    navigator.mediaDevices.getUserMedia({ video: true })
+      .then((stream) => {
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          setIsScanning(true);
+          setScanResult(null);
+          setScanErrorMsg(null);
+          setMatchedEmployee(null);
+        }
+      })
+      .catch((err: any) => {
+        console.error("Error accessing webcam", err);
+        if (err.name === 'NotAllowedError' || err.name === 'PermissionDeniedError' || err.message?.includes('denied') || err.name === 'SecurityError') {
+          setShowPermissionModal(true);
+        }
+        setScanErrorMsg("Camera Access Denied");
+        setScanResult('failed');
+      });
   };
 
   const stopCamera = () => {

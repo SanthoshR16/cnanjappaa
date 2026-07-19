@@ -1,8 +1,12 @@
 package com.example.cnanjappatimbers
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.View
+import android.webkit.PermissionRequest
+import android.webkit.WebChromeClient
 import android.webkit.WebResourceError
 import android.webkit.WebResourceRequest
 import android.webkit.WebView
@@ -10,6 +14,8 @@ import android.webkit.WebViewClient
 import android.widget.ProgressBar
 import androidx.activity.OnBackPressedCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 
 class MainActivity : AppCompatActivity() {
@@ -31,6 +37,11 @@ class MainActivity : AppCompatActivity() {
         setupSwipeRefresh()
         setupBackNavigation()
 
+        // Request camera permission at runtime on startup if not already granted
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA), 101)
+        }
+
         webView.loadUrl(targetUrl)
     }
 
@@ -42,6 +53,13 @@ class MainActivity : AppCompatActivity() {
         settings.useWideViewPort = true
         settings.databaseEnabled = true
         settings.allowFileAccess = true
+
+        // Handle permission requests (e.g. camera) from WebView
+        webView.webChromeClient = object : WebChromeClient() {
+            override fun onPermissionRequest(request: PermissionRequest?) {
+                request?.grant(request.resources)
+            }
+        }
 
         webView.webViewClient = object : WebViewClient() {
             override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
